@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import gamesApi from '@/api/games'; // Импортируйте ваш API-клиент
+
 export default {
   props: {
     games: {
@@ -30,14 +32,22 @@ export default {
     };
   },
   methods: {
-    pickGame() {
-      // Пример простого алгоритма: выбираем первую игру, которая подходит по количеству игроков
-      const numPlayers = this.players.length;
-      this.bestGame = this.games.find(
-        (game) => game.minPlayers <= numPlayers && game.maxPlayers >= numPlayers
-      );
+    async pickGame() {
+      try {
+        // Запрос на подсчет суммарного удовольствия для всех игр
+        const gamesWithPleasure = await gamesApi.calculatePleasure();
+
+        // Выбор игры с наибольшим уровнем удовольствия, которая подходит по количеству игроков
+        const numPlayers = this.players.length;
+        this.bestGame = gamesWithPleasure
+          .filter(
+            (game) => game.minPlayers <= numPlayers && game.maxPlayers >= numPlayers
+          )
+          .sort((a, b) => b.totalPleasure - a.totalPleasure)[0];
+      } catch (error) {
+        alert('Не удалось выбрать игру.');
+      }
     },
   },
 };
 </script>
-

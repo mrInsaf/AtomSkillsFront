@@ -13,6 +13,8 @@
 import GamesColumn from '../components/GamesColumn.vue';
 import PlayersColumn from '../components/PlayersColumn.vue';
 import ResultsColumn from '../components/ResultsColumn.vue';
+import gamesApi from '@/api/games'; // Импортируем API-клиент
+import playersApi from '@/api/players'; // Импортируем API-клиент
 
 export default {
   components: {
@@ -26,9 +28,36 @@ export default {
       players: [],
     };
   },
+  async created() {
+    // Загружаем список игр при создании компонента
+    await this.loadGames();
+  },
   methods: {
     handleGameAdded(newGame) {
       this.games.push(newGame);
+    },
+
+    async loadPlayers() {
+      try {
+        const playersData = await playersApi.getPlayers();
+        this.players = playersData.map(player => ({
+          id: player.id,
+          name: player.name,
+          willingToTryNew: player.willingToTryNew,
+          ratings: player.ratings || {},
+        }));
+      } catch (error) {
+        alert('Не удалось загрузить список игроков.');
+      }
+    },
+
+    // Метод для загрузки списка игр через API
+    async loadGames() {
+      try {
+        this.games = await gamesApi.getGames(); // Загружаем игры с сервера
+      } catch (error) {
+        alert('Не удалось загрузить список игр.');
+      }
     },
   },
 };

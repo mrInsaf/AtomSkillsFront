@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://127.0.0.1:8000'; // Замените на ваш URL
+import { API_BASE_URL } from '@/config'; // Импортируем API_BASE_URL
 
 export default {
   // Получить список всех игр
@@ -46,4 +46,16 @@ export default {
       throw error;
     }
   },
+
+
+    // Подсчитать суммарное удовольствие для всех игр
+    async calculatePleasure() {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/calculate`);
+        return response.data;
+      } catch (error) {
+        console.error('Ошибка при подсчете удовольствия для игр:', error);
+        throw error;
+      }
+    },
 };

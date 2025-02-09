@@ -39,16 +39,16 @@ export default {
     return {
       newGame: {
         name: '',
-        minPlayers: 0,
-        maxPlayers: 0,
+        minPlayers: '',
+        maxPlayers: '',
       },
       games: [],
       isEditModalOpen: false,
       editGame: {
         id: null,
         name: '',
-        minPlayers: 0,
-        maxPlayers: 0,
+        minPlayers: '',
+        maxPlayers: '',
       },
     };
   },
