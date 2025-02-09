@@ -1,26 +1,62 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <MainScreen />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MainScreen from './screens/MainScreen.vue';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    MainScreen,
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+/* Общие стили для всех компонентов */
+.column {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+input, select, button {
+  margin: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #42b983;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #369f6e;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.player {
+  margin-bottom: 20px;
+}
+
+.preference {
+  margin-bottom: 10px;
 }
 </style>
+
